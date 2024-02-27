@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reponsive Image Slider With Next And Previous Buttons</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="slider">
+        <div class="slide active">
+            <img src="1.jpg" alt="To Thanh">
+            <div class="info">
+                <h2> Как называется это место</h2>
+                <p>This Picture at Kolomen Krem!</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="2.jpg" alt="To Thanh1">
+            <div class="info">
+                <h2> This is GorkyPark</h2>
+                <p>Можеть быть Это Красивый парк в Моске!</p>
+            </div>
+
+        </div>
+        <div class="slide">
+            <img src="3.jpg" alt="To Thanh2">
+            <div class="info">
+                <h2> Второй рисунок</h2>
+                <p>Ты видешь меня на рисунке</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="4.jpg" alt="To Thanh3">
+            <div class="info">
+                <h2> Третий рисунок</h2>
+                <p> Могу ли спрашивать тебя о жизни</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="5.jpg" alt="To Thanh4">
+            <div class="info">
+                <h2> Как проживает</h2>
+                <p>Коло́менское — дворцовое село, бывшая царская резиденция (с 1640 года), расположенная к югу от центра Москвы.</p>
+            </div>
+        </div>
+        <div class="navigation">
+            <i class="fas fa-chevron-left prev-btn"></i>
+            <i class="fas fa-chevron-right next-btn"></i>
+        </div>
+        <div class="navigation-visibility">
+            <div class="slide-icon active"></div>
+            <div class="slide-icon"></div>
+            <div class="slide-icon"></div>
+            <div class="slide-icon"></div>
+            <div class="slide-icon"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const slider = document.querySelector(".slider");
+        const nextBtn = document.querySelector(".next-btn");
+        const prevBtn = document.querySelector(".prev-btn");
+        const slides = document.querySelectorAll(".slide");
+        const slideIcons = document.querySelectorAll(".slide-icon");
+        const numberOfSlides = slides.length;
+        var slideNumber = 0;
+        // image slider next button
+        nextBtn.addEventListener("click", ()=> {
+            slides.forEach((slide) =>{
+                slide.classList.remove("active");
+            });
+            slideIcons.forEach((slideIcon) =>{
+                slideIcon.classList.remove("active");
+            });
+
+            slideNumber++;
+
+            if(slideNumber>(numberOfSlides -1)){
+                slideNumber = 0;
+            }
+
+            slides[slideNumber].classList.add("active");
+            slideIcons[slideNumber].classList.add("active");
+        });
+
+        //image slider previous button
+        prevBtn.addEventListener("click", ()=> {
+            slides.forEach((slide) =>{
+                slide.classList.remove("active");
+            });
+            slideIcons.forEach((slideIcon) =>{
+                slideIcon.classList.remove("active");
+            });
+
+            slideNumber--;
+
+            if(slideNumber<0){
+                slideNumber = numberOfSlides -1;
+            }
+
+            slides[slideNumber].classList.add("active");
+            slideIcons[slideNumber].classList.add("active");
+        });
+        var playSlider;
+
+        var repeater = () => {
+            playSlider = setInterval(function(){
+                slides.forEach((slide) =>{
+                slide.classList.remove("active");
+            });
+            slideIcons.forEach((slideIcon) =>{
+                slideIcon.classList.remove("active");
+            });
+
+            slideNumber++;
+
+            if(slideNumber>(numberOfSlides -1)){
+                slideNumber = 0;
+            }
+
+            slides[slideNumber].classList.add("active");
+            slideIcons[slideNumber].classList.add("active");
+            }, 4000);
+        }
+        repeater();
+
+        //stop the image slider autoplay on mouseover
+        slider.addEventListener("mouseover", () =>{
+            clearInterval(playSlider);
+        });
+
+        //start the image slider autoplay again on mouseout
+        slider.addEventListener("mouseout", () =>{
+            repeater();
+        });
+    </script>
+</body>
+</html>
